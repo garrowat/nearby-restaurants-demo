@@ -1,5 +1,9 @@
 import React from 'react';
-import ReactDom from 'react-dom'
+import ReactDOM from 'react-dom';
+import ImageSlide from './components/ImageSlide.jsx';
+import Arrows from './components/Arrows.jsx'
+
+
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -8,7 +12,12 @@ class Carousel extends React.Component {
 
   render() {
     return (
-      <div className="carousel"></div>
+      <div className="carousel">
+        Others Nearby
+        <Arrows direction={'left'}/>
+        <ImageSlide url={'https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/best-italian-food-01.jpg'}/>
+        <Arrows direction={'right'}/>
+      </div>
     )
   }
 }
