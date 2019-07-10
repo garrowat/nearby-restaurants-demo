@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/restaurants', { useNewUrlParser: true }).c
 
 mongoose.set('useCreateIndex', true);
 
-let Nearby = new mongoose.Schema ({
+let nearbySchema = new mongoose.Schema ({
   id: {
     type: Number,
     unique: true
@@ -17,5 +17,14 @@ let Nearby = new mongoose.Schema ({
   imageURL: String
 });
 
-// let Nearby = mongoose.model('Nearby', schema);
+let Nearby = mongoose.model('Nearby', nearbySchema, 'Nearby')
 
+let findNearby = (cat) => {
+  return Nearby.find({"category": cat})
+    .then(nearbies => nearbies)
+    .catch(err => console.log(err))
+  }
+
+module.exports = {
+  findNearby
+}

@@ -1,228 +1,226 @@
-{
-  "nearbyData": [
+  [
     {
       "name": "Shack of Shakes",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 30,
       "favorited": 10,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fancy+burger.jpg"
     },
     {
       "name": "Burger Prince",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 40,
       "favorited": 30,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/burger+prince.png"
     },
     {
       "name": "Is This a Burger?",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 35,
       "favorited": 0,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fnmag-gross-veggie-burger.0.jpg"
     },
     {
       "name": "Beefy Boys",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 45,
       "favorited": 113,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/beefy+boys.jpg"
     },
     {
       "name": "Bovine Buns",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 25,
       "favorited": 55,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/The-Habit-Burger-Grill-Original-Charburger-and-fries-780x520.jpg"
     },
     {
       "name": "MaiDangLau",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 20,
       "favorited": 209,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/Yummy.png"
     },
     {
       "name": "Four Guys",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 25,
       "favorited": 0,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/four+guys.jpg"
     },
     {
       "name": "Mendy's",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 25,
       "favorited": 224,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/WendysMeal_Embedded.jpg"
     },
     {
       "name": "Beige Castle",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 30,
       "favorited": 0,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/beige+castle.jpg"
     },
     {
       "name": "Enter-N-Exit",
-      "category": "Burgers",
+      "category": "burgers",
       "deliveryEst": 35,
       "favorited": 191,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/classic-burgers-u.jpg"
     },
     {
       "name": "Taco Gong",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 30,
       "favorited": 60,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/taco+gong.jpg"
     },
     {
       "name": "Jalapeno",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 45,
       "favorited": 153,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/news-chipotle-queso.jpg"
     },
     {
       "name": "SchMoe's",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 45,
       "favorited": 159,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/burrito.jpg"
     },
     {
       "name": "Taco Juan's",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 20,
       "favorited": 83,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/tacos.jpg"
     },
     {
       "name": "El Cerdo Loco",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 25,
       "favorited": 0,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/10-TexMexBBQ1-600x0-c-default.jpg"
     },
     {
       "name": "Mia Taqueria",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 30,
       "favorited": 211,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/cilantro_taq_coventry_2.jpg"
     },
     {
       "name": "Mamita Fajita",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 30,
       "favorited": 196,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fajita.jpg"
     },
     {
       "name": "Al Taco",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 20,
       "favorited": 28,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/190130-tacos-al-pastor-horizontal-1-1549571422.png"
     },
     {
       "name": "Holy Guacamole",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 25,
       "favorited": 149,
-      "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/Mexican-Chicken-Empanadas-Easy-Appetizer-Recipe-FB-LINK.png"
+      "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/mexican-Chicken-Empanadas-Easy-Appetizer-Recipe-FB-LINK.png"
     },
     {
       "name": "Alotta Tostada",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 45,
       "favorited": 57,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/tostada.jpg"
     },
     {
       "name": "Barriga",
-      "category": "Mexican",
+      "category": "mexican",
       "deliveryEst": 30,
       "favorited": 15,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/Chilaquiles-865x584.jpg"
     },
     {
       "name": "Pizza the Hutt",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 35,
       "favorited": 0,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/Pizza_the_Hutt.jpg"
     },
     {
       "name": "JeetJet?",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 35,
       "favorited": 234,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/nyc+pizza.jpg"
     },
     {
       "name": "Mangia Mangia",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 40,
       "favorited": 220,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fine-italian-food-dishes-including-seafood-and-pasta-dishes-C72NK8.jpg"
     },
     {
       "name": "Fugeddaboudit",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 25,
       "favorited": 197,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/calamari.jpg"
     },
     {
       "name": "Mario e Luigi's",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 30,
       "favorited": 0,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/best-italian-food-01.jpg"
     },
     {
       "name": "Zuppa di Pesce",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 35,
       "favorited": 145,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/Zuppa-di-pesce.jpg"
     },
     {
       "name": "Mama Maria",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 40,
       "favorited": 109,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/eat-like-a-local-italy-pizza-pasta.png"
     },
     {
       "name": "Olive Farm",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 45,
       "favorited": 70,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/breadsticksOG.jpg"
     },
     {
       "name": "In the Calzone",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 30,
       "favorited": 130,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/calzone.jpg"
     },
     {
       "name": "Papa Gio's",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 30,
       "favorited": 39,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/PapJohns.jpg"
     },
     {
       "name": "Gino's Sputino",
-      "category": "Italian",
+      "category": "italian",
       "deliveryEst": 40,
       "favorited": 7,
       "imageURL": "https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/parmiga.jpg"
     }
   ]
-}
