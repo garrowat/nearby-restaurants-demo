@@ -1,23 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-class Slide extends React.Component {
+class Slide extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      favorited: false,
+    };
   }
 
 
   render() {
-    console.log('Image URL', this.props)
-    const styles = {
-      backgroundImage: `url(${this.props.slide.imageURL})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-    }
-  return (
-    <div className="slide" style={styles}>
-
-    </div>
-  )
+    const { imageURL } = this.props;
+    const img = {
+      backgroundImage: `url(${imageURL})`,
+    };
+    return (
+      <div className="slide">
+        <div className="image" style={img} />
+        <div className="slideInfo">Name Est Del</div>
+      </div>
+    );
   }
 }
 

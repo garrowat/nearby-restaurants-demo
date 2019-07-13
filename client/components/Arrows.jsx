@@ -1,18 +1,21 @@
-import React from 'react'
-import {FaChevronRight} from 'react-icons/fa';
-import {FaChevronLeft} from 'react-icons/fa';
+import React from 'react';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa';
 
-const Arrows = ({direction, onClick}) => {
+
+const Arrows = ({ direction, scrollByThree }) => {
   let Arrow;
+  let className;
   if (direction === 'left') {
-    Arrow = FaChevronRight ;
-  } else if (direction === 'right'){
     Arrow = FaChevronLeft;
-  };
+    className = 'leftArrow';
+  } else if (direction === 'right') {
+    Arrow = FaChevronRight;
+    className = 'rightArrow';
+  }
   return (
-    <div className="arrow"><Arrow /></div>
-  )
-}
+    <button type="button" className={className} onClick={() => scrollByThree(direction)}><Arrow className="chevron" /></button>
+  );
+};
 
 
 export default Arrows;

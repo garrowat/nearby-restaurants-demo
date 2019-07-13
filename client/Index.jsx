@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Carousel from './components/Carousel.jsx';
+import Nearby from './components/Nearby.jsx';
 
-ReactDOM.render(<Carousel />, document.getElementById('app'));
+ReactDOM.render(<Nearby />, document.getElementById('app'));

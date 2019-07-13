@@ -8,9 +8,9 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
+    "build": "webpack -d --watch",
     "seed-db": "mongoimport --db restaurants --collection Nearby --file nearby-data.json --jsonArray",
+    "start": "nodemon server/index.js",
     "test": "jest"
   },
   "jest": {
@@ -19,24 +19,30 @@
     ]
   },
   "dependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "express": "^4.17.1",
+    "jquery": "^3.4.1",
     "mongodb": "^3.2.7",
     "mongoose": "^5.6.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-icons": "^3.7.0"
+    "react-icons": "^3.7.0",
+    "react-transition-group": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/preset-env": "^7.5.2",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
     "jest": "^24.8.0",
-    "jquery": "^3.4.1",
     "nodemon": "^1.19.1",
+    "redux": "^4.0.4",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
   }

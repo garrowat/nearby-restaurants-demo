@@ -1,54 +1,34 @@
 import React from 'react';
-import $ from 'jquery';
+import { CSSTransitionGroup } from 'react-transition-group';
 import Slide from './Slide.jsx';
-import Arrows from './Arrows.jsx'
+import Arrows from './Arrows.jsx';
 
 
+const Carousel = ({
+  currentDeck, hideRightArrow, hideLeftArrow, scrollByThree,
+  position,
+}) => {
+  const slides = currentDeck.map(slide => <Slide key={slide.id} {...slide} />);
 
-class Carousel extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      carousel: []
-    }
-  }
-
-  componentDidMount() {
-    this.getNearbies('burgers')
-  }
-
-  getNearbies(cat) {
-    var data = {category: "burgers"}
-
-    $.ajax({
-      url: '/api/nearby',
-      method: 'GET',
-      contentType: 'application/json',
-      data: data,
-      error: (err) => {
-        console.log(err);
-      },
-      success: (data) => {
-        this.setState({
-          carousel: data
-        })
-      }
-    })
-  }
-
-
-  render() {
-    return (
-      <div className="nearby">
-        Others Nearby
-        <Arrows direction={'left'}/>
-        <div className="carousel">
-        {this.state.carousel.map((slide, i) => <Slide key={i} slide={slide}/>)}
-        </div>
-        <Arrows direction={'right'}/>
+  return (
+    <div className="carousel">
+      <div className="overflowWrapper">
+        <CSSTransitionGroup
+          transitionName="scroll"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
+          <span className="slidedeck" key={position}>
+            {slides}
+          </span>
+        </CSSTransitionGroup>
       </div>
-    )
-  }
-}
+      {!hideLeftArrow && <Arrows direction="left" className="leftArrow" scrollByThree={scrollByThree} />}
+      {!hideRightArrow && <Arrows direction="right" className="rightArrow" scrollByThree={scrollByThree} />}
+    </div>
+
+  );
+};
+
 
 export default Carousel;
