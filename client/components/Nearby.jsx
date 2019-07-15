@@ -89,7 +89,7 @@ class Nearby extends Component {
       this.setState({
         isScrolling: false,
       });
-    }, 100);
+    }, 50);
   }
 
 
