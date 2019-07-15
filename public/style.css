@@ -1,8 +1,14 @@
+
 #app {
   display: flex;
+  font-family: 'PostMates', 'Helvetica Neue', Helvetica;
   width: 100%;
   height: 648px;
   margin: 0 auto;
+}
+
+h3 {
+  font-family: 'PostMatesBold', 'Helvetica Neue', Helvetica;
 }
 
 .nearby {
@@ -16,28 +22,15 @@
 .carousel {
   display: flex;
   position: relative;
-  width: 1024px;
   height: 257px;
 }
 
 .overflowWrapper {
   display: flex;
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
   width: 1024px;
   height: 257px;
-}
-
-.slidedeck {
-  height: 100%;
-  display: inline-flex;
-  position: absolute;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.slidedeck > :first-child {
-  margin-left: 0;
 }
 
 
@@ -54,27 +47,6 @@
 .scroll-leave.scroll-leave-active {
   transform: translate(-1024px);
   transition: transform 300ms ease-in-out;
-}
-/* .scroll-enter.right {
-  transform: translate(0%);
-}
-.scroll-enter.scroll-enter-active.right {
-  transform: translate(-100%);
-  transition: transform 500ms ease-in-out;
-}
-.scroll-leave.right {
-  transform: translate(0%);
-}
-.scroll-leave.scroll-leave-active.right {
-  transform: translate(-100%);
-  transition: transform 500ms ease-in-out;
-} */
-
-.slide {
-  flex-shrink: 0;
-  width: 317px;
-  height: 257px;
-  margin-left: 36px;
 }
 
 .image {
@@ -106,8 +78,12 @@
   right: -24px;
 }
 
-.chevron {
-  margin: 0 auto;
-  height: 15px;
-  width: 15px;
+@font-face {
+font-family: "PostMates";
+src: url(https://restaurantmediafec.s3.us-east-2.amazonaws.com/postmates+fonts/postmates-std-regular.woff) format("woff");
+}
+
+@font-face {
+  font-family: "PostMatesBold";
+  src: url(https://restaurantmediafec.s3.us-east-2.amazonaws.com/postmates+fonts/postmates-std-bold.woff) format("woff");
 }

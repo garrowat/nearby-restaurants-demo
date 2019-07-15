@@ -9,10 +9,13 @@ class Nearby extends Component {
       carouselData: [],
       currentDeck: [],
       position: 0,
+      direction: '',
+      isScrolling: false,
       hideRightArrow: true,
       hideLeftArrow: true,
     };
     this.scrollByThree = this.scrollByThree.bind(this);
+    this.getOrder = this.getOrder.bind(this);
   }
 
   componentDidMount() {
@@ -37,56 +40,73 @@ class Nearby extends Component {
         }
         this.setState({
           carouselData: results,
-          currentDeck: results.slice(0, 3),
+          currentDeck: results.slice(0, 12),
         });
       },
     });
   }
 
+  getOrder(index) {
+    const { position, currentDeck } = this.state;
+    const numSlides = currentDeck.length;
+
+    if (index - position < 0) {
+      return numSlides - Math.abs(index - position);
+    }
+    return index - position;
+  }
+
   scrollByThree(direction) {
     const { carouselData } = this.state;
     let {
-      currentDeck, position, hideRightArrow, hideLeftArrow,
+      currentDeck, position, hideRightArrow, hideLeftArrow, isScrolling,
     } = this.state;
 
     if (direction === 'right' && position < 8) {
       position += 3;
       hideLeftArrow = false;
-      if (position === 9) {
+      isScrolling = true;
+      if (position >= currentDeck.length - 3) {
         hideRightArrow = true;
       }
     } else if (direction === 'left' && position > 0) {
       position -= 3;
       hideRightArrow = false;
+      isScrolling = true;
       if (position === 0) {
         hideLeftArrow = true;
       }
     }
-    currentDeck = carouselData.slice(position, position + 3);
     const currentState = {
-      currentDeck, position, hideLeftArrow, hideRightArrow,
+      position, hideLeftArrow, hideRightArrow, direction, isScrolling,
     };
     this.setState({
       ...currentState,
     }, () => {
       console.log('current state', this.state);
     });
+    setTimeout(() => {
+      this.setState({
+        isScrolling: false,
+      });
+    }, 100);
   }
 
 
   render() {
     const {
       carouselData, currentDeck, hideRightArrow, hideLeftArrow,
-      position,
+      position, isScrolling, direction,
     } = this.state;
     if (carouselData.length === 0) {
       return (<div>LOADING</div>);
     }
-    console.log('right', hideRightArrow, 'left', hideLeftArrow);
     return (
       <div className="nearby">
-          Other Options Nearby
-        <Carousel currentDeck={currentDeck} hideRightArrow={hideRightArrow} hideLeftArrow={hideLeftArrow} scrollByThree={this.scrollByThree} position={position} />
+        <h3>
+           Other Options Nearby
+        </h3>
+        <Carousel currentDeck={currentDeck} hideRightArrow={hideRightArrow} hideLeftArrow={hideLeftArrow} scrollByThree={this.scrollByThree} getOrder={this.getOrder} position={position} scrolling={isScrolling} direction={direction} />
       </div>
     );
   }
