@@ -18,3 +18,9 @@ app.get('/api/nearby', (req, res) => {
     .then(nearbies => res.status(200).send(nearbies))
     .catch(err => res.status(400, err));
 });
+
+app.put('/api/favorite', (req, res) => {
+  db.addFavorite(req.body.id, req.body.increment)
+    .then(total => res.status(202).send(total))
+    .catch(err => res.status(400, err));
+});

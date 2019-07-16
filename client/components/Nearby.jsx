@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+import { MdChevronRight } from 'react-icons/md';
 import $ from 'jquery';
 import Carousel from './Carousel.jsx';
+
+
+const TopBar = styled.div`
+  height: 30px;
+  length: 100%;
+  display: flex;
+  text-transform: capitalize;
+  padding-bottom: 14px;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(217,219,224,0.5);
+`;
+
+const RightChevron = styled(MdChevronRight)`
+  position: relative;
+  margin-top: auto;
+  height: 26px;
+  width: 26px;
+  color: #8F95A3;
+`;
 
 class Nearby extends Component {
   constructor(props) {
@@ -10,17 +32,17 @@ class Nearby extends Component {
       currentDeck: [],
       position: 0,
       direction: '',
-      isScrolling: false,
+      offset: '',
       hideRightArrow: true,
       hideLeftArrow: true,
     };
     this.scrollByThree = this.scrollByThree.bind(this);
-    this.getOrder = this.getOrder.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
   }
 
   componentDidMount() {
     let category;
-    this.getNearbies(category || 'burgers');
+    this.getNearbies(category || 'mexican');
   }
 
   getNearbies(category) {
@@ -46,67 +68,84 @@ class Nearby extends Component {
     });
   }
 
-  getOrder(index) {
-    const { position, currentDeck } = this.state;
-    const numSlides = currentDeck.length;
-
-    if (index - position < 0) {
-      return numSlides - Math.abs(index - position);
-    }
-    return index - position;
-  }
-
   scrollByThree(direction) {
     const { carouselData } = this.state;
     let {
-      currentDeck, position, hideRightArrow, hideLeftArrow, isScrolling,
+      currentDeck, position, hideRightArrow, hideLeftArrow, offset,
     } = this.state;
 
     if (direction === 'right' && position < 8) {
       position += 3;
       hideLeftArrow = false;
-      isScrolling = true;
       if (position >= currentDeck.length - 3) {
         hideRightArrow = true;
       }
     } else if (direction === 'left' && position > 0) {
       position -= 3;
       hideRightArrow = false;
-      isScrolling = true;
       if (position === 0) {
         hideLeftArrow = true;
       }
     }
+    offset = `translateX(calc(-${100 * position / 3}% + -${36 * position / 3}px))`;
     const currentState = {
-      position, hideLeftArrow, hideRightArrow, direction, isScrolling,
+      position, hideLeftArrow, hideRightArrow, direction, offset,
     };
     this.setState({
       ...currentState,
-    }, () => {
-      console.log('current state', this.state);
     });
-    setTimeout(() => {
-      this.setState({
-        isScrolling: false,
-      });
-    }, 50);
+  }
+
+  addFavorite(id, favoriteAdded) {
+    const { currentDeck } = this.state;
+    let data = {};
+    let increment;
+
+    if (!favoriteAdded) {
+      increment = 1;
+    } else {
+      increment = -1;
+    }
+    data = { id, increment };
+    $.ajax({
+      url: '/api/favorite',
+      method: 'PUT',
+      data,
+      error: (err) => {
+        console.log(err);
+      },
+      success: () => {
+        for (let i = 0; i < currentDeck.length; i += 1) {
+          if (currentDeck[i].id === id) {
+            currentDeck[i].favorited += increment;
+          }
+        }
+        this.setState({
+          currentDeck,
+        });
+      },
+    });
   }
 
 
   render() {
     const {
       carouselData, currentDeck, hideRightArrow, hideLeftArrow,
-      position, isScrolling, direction,
+      position, offset, direction,
     } = this.state;
     if (carouselData.length === 0) {
       return (<div>LOADING</div>);
     }
     return (
       <div className="nearby">
-        <h3>
-           Other Options Nearby
-        </h3>
-        <Carousel currentDeck={currentDeck} hideRightArrow={hideRightArrow} hideLeftArrow={hideLeftArrow} scrollByThree={this.scrollByThree} getOrder={this.getOrder} position={position} scrolling={isScrolling} direction={direction} />
+        <TopBar>
+          <h3>Other Options Nearby</h3>
+          <div className="allInArea">
+            {`All ${currentDeck[0].category} Delivery `}
+          </div>
+          <RightChevron />
+        </TopBar>
+        <Carousel currentDeck={currentDeck} hideRightArrow={hideRightArrow} hideLeftArrow={hideLeftArrow} scrollByThree={this.scrollByThree} addFavorite={this.addFavorite} position={position} offset={offset} direction={direction} />
       </div>
     );
   }
