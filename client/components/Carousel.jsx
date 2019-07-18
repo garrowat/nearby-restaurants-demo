@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { MdChevronRight, MdChevronLeft } from 'react-icons/md';
 import Slide from './Slide.jsx';
 
+const CarouselContainer = styled.div`
+  display: flex;
+  position: relative;
+  height: auto;
+`;
+
+
 const SlideDeck = styled.div`
   height: 100%;
   width: 100%;
@@ -21,8 +28,9 @@ const OverflowWrapper = styled.div`
   height: 100%;
 `;
 
-const Arrow = styled.button`
+const LeftArrow = styled.button`
   display: flex;
+  outline: none;
   position: absolute;
   align-items: center;
   height: 40px;
@@ -32,6 +40,22 @@ const Arrow = styled.button`
   cursor: pointer;
   border: 1px solid rgb(217, 219, 224);
   border-radius: 50%;
+  left: -26px;
+`;
+
+const RightArrow = styled.button`
+  display: flex;
+  outline: none;
+  position: absolute;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  top: 35%;
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid rgb(217, 219, 224);
+  border-radius: 50%;
+  right: -24px;
 `;
 
 const LeftChevron = styled(MdChevronLeft)`
@@ -60,14 +84,23 @@ const Carousel = ({
   ));
 
   return (
-    <div className="carousel">
+    <CarouselContainer>
       <OverflowWrapper>
         <SlideDeck direction={direction} offset={offset}>{slides}</SlideDeck>
       </OverflowWrapper>
 
-      {!hideLeftArrow && <Arrow className="leftArrow" dir="left" onClick={() => scrollByThree('left')}><LeftChevron /></Arrow>}
-      {!hideRightArrow && <Arrow className="rightArrow" dir="right" onClick={() => scrollByThree('right')}><RightChevron /></Arrow>}
-    </div>
+      {!hideLeftArrow
+      && (
+      <LeftArrow className="leftArrow" dir="left" onClick={() => scrollByThree('left')}>
+        <LeftChevron />
+      </LeftArrow>
+      )}
+      {!hideRightArrow && (
+      <RightArrow className="rightArrow" dir="right" onClick={() => scrollByThree('right')}>
+        <RightChevron />
+      </RightArrow>
+      )}
+    </CarouselContainer>
 
   );
 };

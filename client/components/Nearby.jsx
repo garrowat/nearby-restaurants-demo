@@ -1,8 +1,41 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { MdChevronRight } from 'react-icons/md';
-import $ from 'jquery';
 import Carousel from './Carousel.jsx';
+
+const NearbyApp = styled.div`
+  display: flex;
+  font-family: 'PostMates', 'Helvetica Neue', Helvetica;
+  max-width: 100%;
+  height: 682px;
+  margin: 0 auto;
+`;
+
+
+const Title = styled.h3`
+  margin-top: auto;
+  font-family: 'PostMatesMed', 'Helvetica Neue', Helvetica;
+  font-size: 24px;
+  letter-spacing: -0.2px;
+`;
+
+
+const AllInArea = styled.div`
+  display: flex;
+  margin: auto 0 auto auto;
+  letter-spacing: 0.3px;
+  font-size: 16px;
+  color: #8F95A3;
+`;
+
+
+const NearbyContent = styled.div`
+  width: 1024px;
+  height: auto;
+  padding-left: 36px;
+  padding-right: 36px;
+  margin: 0 auto;
+`;
 
 
 const TopBar = styled.div`
@@ -42,7 +75,7 @@ class Nearby extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api${id}`)
+    fetch(`/api/nearby${id}`)
       .then(carousel => carousel.json())
       .then((carousel) => {
         if (carousel.length > 3) { this.setState({ hideRightArrow: false }); }
@@ -89,7 +122,7 @@ class Nearby extends Component {
       increment = -1;
     }
     const data = { restaurantId, increment };
-    fetch(`/api${id}`, {
+    fetch(`/api/nearby${id}`, {
       method: 'put',
       headers: {
         Accept: 'application/json',
@@ -111,25 +144,27 @@ class Nearby extends Component {
       return (<div>LOADING</div>);
     }
     return (
-      <div className="nearby">
-        <TopBar>
-          <h3>Other Options Nearby</h3>
-          <div className="allInArea">
-            {`All ${carouselData[0].category} Delivery `}
-          </div>
-          <RightChevron />
-        </TopBar>
-        <Carousel
-          carouselData={carouselData}
-          hideRightArrow={hideRightArrow}
-          hideLeftArrow={hideLeftArrow}
-          scrollByThree={this.scrollByThree}
-          addFavorite={this.addFavorite}
-          position={position}
-          offset={offset}
-          direction={direction}
-        />
-      </div>
+      <NearbyApp>
+        <NearbyContent>
+          <TopBar>
+            <Title>Other Options Nearby</Title>
+            <AllInArea>
+              {`All ${carouselData[0].category} Delivery `}
+            </AllInArea>
+            <RightChevron />
+          </TopBar>
+          <Carousel
+            carouselData={carouselData}
+            hideRightArrow={hideRightArrow}
+            hideLeftArrow={hideLeftArrow}
+            scrollByThree={this.scrollByThree}
+            addFavorite={this.addFavorite}
+            position={position}
+            offset={offset}
+            direction={direction}
+          />
+        </NearbyContent>
+      </NearbyApp>
     );
   }
 }
