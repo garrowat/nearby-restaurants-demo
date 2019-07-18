@@ -1,8 +1,41 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { MdChevronRight } from 'react-icons/md';
-import $ from 'jquery';
 import Carousel from './Carousel.jsx';
+
+const NearbyApp = styled.div`
+  display: flex;
+  font-family: 'PostMates', 'Helvetica Neue', Helvetica;
+  max-width: 100%;
+  height: 682px;
+  margin: 0 auto;
+`;
+
+
+const Title = styled.h3`
+  margin-top: auto;
+  font-family: 'PostMatesMed', 'Helvetica Neue', Helvetica;
+  font-size: 24px;
+  letter-spacing: -0.2px;
+`;
+
+
+const AllInArea = styled.div`
+  display: flex;
+  margin: auto 0 auto auto;
+  letter-spacing: 0.3px;
+  font-size: 16px;
+  color: #8F95A3;
+`;
+
+
+const NearbyContent = styled.div`
+  width: 1024px;
+  height: auto;
+  padding-left: 36px;
+  padding-right: 36px;
+  margin: 0 auto;
+`;
 
 
 const TopBar = styled.div`
@@ -24,12 +57,13 @@ const RightChevron = styled(MdChevronRight)`
   color: #8F95A3;
 `;
 
+const id = window.location.pathname;
+
 class Nearby extends Component {
   constructor(props) {
     super(props);
     this.state = {
       carouselData: [],
-      currentDeck: [],
       position: 0,
       direction: '',
       offset: '',
@@ -41,43 +75,26 @@ class Nearby extends Component {
   }
 
   componentDidMount() {
-    let category;
-    this.getNearbies(category || 'mexican');
+    fetch(`/api/nearby${id}`)
+      .then(carousel => carousel.json())
+      .then((carousel) => {
+        if (carousel.length > 3) { this.setState({ hideRightArrow: false }); }
+        this.setState({ carouselData: carousel });
+      })
+      .catch(err => console.log(err));
   }
 
-  getNearbies(category) {
-    const data = { category };
-
-    $.ajax({
-      url: '/api/nearby',
-      method: 'GET',
-      contentType: 'application/json',
-      data,
-      error: (err) => {
-        console.log(err);
-      },
-      success: (results) => {
-        if (results.length > 3) {
-          this.setState({ hideRightArrow: false });
-        }
-        this.setState({
-          carouselData: results,
-          currentDeck: results.slice(0, 12),
-        });
-      },
-    });
-  }
 
   scrollByThree(direction) {
     const { carouselData } = this.state;
     let {
-      currentDeck, position, hideRightArrow, hideLeftArrow, offset,
+      position, hideRightArrow, hideLeftArrow, offset,
     } = this.state;
 
     if (direction === 'right' && position < 8) {
       position += 3;
       hideLeftArrow = false;
-      if (position >= currentDeck.length - 3) {
+      if (position >= carouselData.length - 3) {
         hideRightArrow = true;
       }
     } else if (direction === 'left' && position > 0) {
@@ -96,57 +113,58 @@ class Nearby extends Component {
     });
   }
 
-  addFavorite(id, favoriteAdded) {
-    const { currentDeck } = this.state;
-    let data = {};
+  addFavorite(restaurantId, favoriteAdded, index) {
+    const { carouselData } = this.state;
     let increment;
-
     if (!favoriteAdded) {
       increment = 1;
     } else {
       increment = -1;
     }
-    data = { id, increment };
-    $.ajax({
-      url: '/api/favorite',
-      method: 'PUT',
-      data,
-      error: (err) => {
-        console.log(err);
+    const data = { restaurantId, increment };
+    fetch(`/api/nearby${id}`, {
+      method: 'put',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      success: () => {
-        for (let i = 0; i < currentDeck.length; i += 1) {
-          if (currentDeck[i].id === id) {
-            currentDeck[i].favorited += increment;
-          }
-        }
-        this.setState({
-          currentDeck,
-        });
-      },
-    });
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(res => this.setState({ carouselData: res }))
+      .catch(err => console.log(err));
   }
-
 
   render() {
     const {
-      carouselData, currentDeck, hideRightArrow, hideLeftArrow,
+      carouselData, hideRightArrow, hideLeftArrow,
       position, offset, direction,
     } = this.state;
     if (carouselData.length === 0) {
       return (<div>LOADING</div>);
     }
     return (
-      <div className="nearby">
-        <TopBar>
-          <h3>Other Options Nearby</h3>
-          <div className="allInArea">
-            {`All ${currentDeck[0].category} Delivery `}
-          </div>
-          <RightChevron />
-        </TopBar>
-        <Carousel currentDeck={currentDeck} hideRightArrow={hideRightArrow} hideLeftArrow={hideLeftArrow} scrollByThree={this.scrollByThree} addFavorite={this.addFavorite} position={position} offset={offset} direction={direction} />
-      </div>
+      <NearbyApp>
+        <NearbyContent>
+          <TopBar>
+            <Title>Other Options Nearby</Title>
+            <AllInArea>
+              {`All ${carouselData[0].category} Delivery `}
+            </AllInArea>
+            <RightChevron />
+          </TopBar>
+          <Carousel
+            carouselData={carouselData}
+            hideRightArrow={hideRightArrow}
+            hideLeftArrow={hideLeftArrow}
+            scrollByThree={this.scrollByThree}
+            addFavorite={this.addFavorite}
+            position={position}
+            offset={offset}
+            direction={direction}
+          />
+        </NearbyContent>
+      </NearbyApp>
     );
   }
 }
