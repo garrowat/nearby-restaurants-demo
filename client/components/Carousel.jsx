@@ -47,10 +47,17 @@ const RightChevron = styled(MdChevronRight)`
 `;
 
 const Carousel = ({
-  currentDeck, hideRightArrow, hideLeftArrow, position,
+  carouselData, hideRightArrow, hideLeftArrow, position,
   getOrder, scrollByThree, offset, direction, addFavorite,
 }) => {
-  const slides = currentDeck.map((slide, index) => <Slide key={slide.id} index={index} {...slide} addFavorite={addFavorite} />);
+  const slides = carouselData.map((slide, index) => (
+    <Slide
+      key={slide.restaurantId}
+      index={index}
+      {...slide}
+      addFavorite={addFavorite}
+    />
+  ));
 
   return (
     <div className="carousel">

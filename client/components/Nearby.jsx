@@ -24,12 +24,13 @@ const RightChevron = styled(MdChevronRight)`
   color: #8F95A3;
 `;
 
+const id = window.location.pathname;
+
 class Nearby extends Component {
   constructor(props) {
     super(props);
     this.state = {
       carouselData: [],
-      currentDeck: [],
       position: 0,
       direction: '',
       offset: '',
@@ -41,43 +42,26 @@ class Nearby extends Component {
   }
 
   componentDidMount() {
-    let category;
-    this.getNearbies(category || 'mexican');
+    fetch(`/api${id}`)
+      .then(carousel => carousel.json())
+      .then((carousel) => {
+        if (carousel.length > 3) { this.setState({ hideRightArrow: false }); }
+        this.setState({ carouselData: carousel });
+      })
+      .catch(err => console.log(err));
   }
 
-  getNearbies(category) {
-    const data = { category };
-
-    $.ajax({
-      url: '/api/nearby',
-      method: 'GET',
-      contentType: 'application/json',
-      data,
-      error: (err) => {
-        console.log(err);
-      },
-      success: (results) => {
-        if (results.length > 3) {
-          this.setState({ hideRightArrow: false });
-        }
-        this.setState({
-          carouselData: results,
-          currentDeck: results.slice(0, 12),
-        });
-      },
-    });
-  }
 
   scrollByThree(direction) {
     const { carouselData } = this.state;
     let {
-      currentDeck, position, hideRightArrow, hideLeftArrow, offset,
+      position, hideRightArrow, hideLeftArrow, offset,
     } = this.state;
 
     if (direction === 'right' && position < 8) {
       position += 3;
       hideLeftArrow = false;
-      if (position >= currentDeck.length - 3) {
+      if (position >= carouselData.length - 3) {
         hideRightArrow = true;
       }
     } else if (direction === 'left' && position > 0) {
@@ -96,41 +80,31 @@ class Nearby extends Component {
     });
   }
 
-  addFavorite(id, favoriteAdded) {
-    const { currentDeck } = this.state;
-    let data = {};
+  addFavorite(restaurantId, favoriteAdded, index) {
+    const { carouselData } = this.state;
     let increment;
-
     if (!favoriteAdded) {
       increment = 1;
     } else {
       increment = -1;
     }
-    data = { id, increment };
-    $.ajax({
-      url: '/api/favorite',
-      method: 'PUT',
-      data,
-      error: (err) => {
-        console.log(err);
+    const data = { restaurantId, increment };
+    fetch(`/api${id}`, {
+      method: 'put',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      success: () => {
-        for (let i = 0; i < currentDeck.length; i += 1) {
-          if (currentDeck[i].id === id) {
-            currentDeck[i].favorited += increment;
-          }
-        }
-        this.setState({
-          currentDeck,
-        });
-      },
-    });
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(res => this.setState({ carouselData: res }))
+      .catch(err => console.log(err));
   }
-
 
   render() {
     const {
-      carouselData, currentDeck, hideRightArrow, hideLeftArrow,
+      carouselData, hideRightArrow, hideLeftArrow,
       position, offset, direction,
     } = this.state;
     if (carouselData.length === 0) {
@@ -141,11 +115,20 @@ class Nearby extends Component {
         <TopBar>
           <h3>Other Options Nearby</h3>
           <div className="allInArea">
-            {`All ${currentDeck[0].category} Delivery `}
+            {`All ${carouselData[0].category} Delivery `}
           </div>
           <RightChevron />
         </TopBar>
-        <Carousel currentDeck={currentDeck} hideRightArrow={hideRightArrow} hideLeftArrow={hideLeftArrow} scrollByThree={this.scrollByThree} addFavorite={this.addFavorite} position={position} offset={offset} direction={direction} />
+        <Carousel
+          carouselData={carouselData}
+          hideRightArrow={hideRightArrow}
+          hideLeftArrow={hideLeftArrow}
+          scrollByThree={this.scrollByThree}
+          addFavorite={this.addFavorite}
+          position={position}
+          offset={offset}
+          direction={direction}
+        />
       </div>
     );
   }

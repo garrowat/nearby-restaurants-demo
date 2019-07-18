@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { MdStarBorder, MdStar } from 'react-icons/md';
-import $ from 'jquery';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
+
+
+const Grow = keyframes`
+0% { transform: scale(1) }
+50% {transform: scale(1.3)}
+100% {transform: scale(1)}
+`;
+
 
 const Favorites = styled.div`
-  font-size: 14px;
-  font-family: 'PostMates', 'Helvetica Neue', Helvetica;
+font-size: 14px;
+font-family: 'PostMates', 'Helvetica Neue', Helvetica;
   font-weight: 400;
   color: #8F95A3;
   padding-top: 5px;
   visibility: hidden;
-`;
+  `;
 
 const SlideContainer = styled.div`
-  flex: 0 0 calc(33.33333333333333% - 0px - 24px);
-  position: relative;
+flex: 0 0 calc(33.33333% - 0px - 24px);
+position: relative;
   margin-left: 36px;
   &:first-child {
     margin-left: 0px;
@@ -22,10 +29,10 @@ const SlideContainer = styled.div`
   &:hover ${Favorites} {
     visibility: visible;
   }
-`;
+  `;
 
 const RestaurantImage = styled.div`
-  display: flex;
+display: flex;
   position: relative;
   opacity: 1;
   height: auto;
@@ -36,7 +43,7 @@ const RestaurantImage = styled.div`
   }
   &:after {
     content: "";
-    background-image: url(${props => props.imageURL});
+    background-image: url(${props => props.image});
     background-size: cover;
     background-position: center;
     opacity: 1;
@@ -47,7 +54,7 @@ const RestaurantImage = styled.div`
     position: absolute;
     z-index: -1;
   }
-`;
+  `;
 
 const Star = styled(MdStarBorder)`
   color: white;
@@ -55,8 +62,9 @@ const Star = styled(MdStarBorder)`
   position: absolute;
   height: 33px;
   width: 33px;
-  &: onclick
-`;
+  scale: 1;
+  animation: ${props => props.favclicked && css`${Grow}`} 1s cubic-bezier(.62,-0.01,.5,.41) ;
+  `;
 
 const StarBack = styled(MdStar)`
   color: gold;
@@ -64,14 +72,14 @@ const StarBack = styled(MdStar)`
   position: absolute;
   height: 32px;
   width: 32px;
-`;
+  `;
 
 const SlideInfo = styled.div`
   display: block;
   margin-top: 15px;
   font-size: 18px;
   font-family: 'PostMatesMed', 'Helvetica Neue', Helvetica;
-`;
+  `;
 
 
 const Delivery = styled.div`
@@ -80,20 +88,22 @@ const Delivery = styled.div`
   font-weight: 400;
   color: #8F95A3;
   padding-top: 10px;
-`;
+  `;
 
 
 const StarTwo = styled(MdStar)`
   color: gold;
   height: 17px;
   width: 17px;
-`;
+  `;
+
 
 class Slide extends Component {
   constructor(props) {
     super(props);
     this.state = {
       favoriteAdded: false,
+      favClicked: false,
     };
     this.toggleFavorite = this.toggleFavorite.bind(this);
   }
@@ -104,16 +114,30 @@ class Slide extends Component {
     });
   }
 
+  growShrink() {
+    this.setState({
+      favClicked: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        favClicked: false,
+      });
+    }, 1000);
+  }
+
   render() {
     const {
-      imageURL, name, deliveryEst, favorited, id, addFavorite,
+      image, name, deliveryEst, favorited, restaurantId, addFavorite, growShrink, index,
     } = this.props;
-    const { favoriteAdded } = this.state;
+    const { favoriteAdded, favClicked } = this.state;
     return (
       <SlideContainer className="slide">
-        <RestaurantImage imageURL={imageURL}>
+        <RestaurantImage image={image}>
           { favoriteAdded && <StarBack />}
-          <Star favoriteadded={favoriteAdded ? 1 : 0} onClick={() => { addFavorite(id, favoriteAdded); this.toggleFavorite(favoriteAdded); }} />
+          <Star
+            favclicked={favClicked ? 1 : 0}
+            onClick={() => { addFavorite(restaurantId, favoriteAdded, index); this.toggleFavorite(favoriteAdded); this.growShrink(); }}
+          />
         </RestaurantImage>
         <SlideInfo>
           {name}
