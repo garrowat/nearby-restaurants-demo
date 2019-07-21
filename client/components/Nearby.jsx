@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { MdChevronRight } from 'react-icons/md';
+import axios from 'axios';
 import Carousel from './Carousel.jsx';
 
 const NearbyApp = styled.div`
@@ -37,7 +38,6 @@ const NearbyContent = styled.div`
   margin: 0 auto;
 `;
 
-
 const TopBar = styled.div`
   height: 30px;
   length: 100%;
@@ -64,85 +64,44 @@ class Nearby extends Component {
     super(props);
     this.state = {
       carouselData: [],
-      position: 0,
-      direction: '',
-      offset: '',
-      hideRightArrow: true,
-      hideLeftArrow: true,
+      error: '',
     };
-    this.scrollByThree = this.scrollByThree.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
+    this.fetchData = this.fetchData.bind(this);
   }
 
   componentDidMount() {
-    fetch(`/api/nearby${id}`)
-      .then(carousel => carousel.json())
+    this.fetchData(id);
+  }
+
+  async fetchData() {
+    await axios.get(`/api/nearby${id}`)
       .then((carousel) => {
-        if (carousel.length > 3) { this.setState({ hideRightArrow: false }); }
-        this.setState({ carouselData: carousel });
+        if (carousel.data.length === 0) { this.setState({ error: 'Data not retrieved' }); }
+        this.setState({ carouselData: carousel.data });
       })
       .catch(err => console.log(err));
   }
 
-
-  scrollByThree(direction) {
-    const { carouselData } = this.state;
-    let {
-      position, hideRightArrow, hideLeftArrow, offset,
-    } = this.state;
-
-    if (direction === 'right' && position < 8) {
-      position += 3;
-      hideLeftArrow = false;
-      if (position >= carouselData.length - 3) {
-        hideRightArrow = true;
-      }
-    } else if (direction === 'left' && position > 0) {
-      position -= 3;
-      hideRightArrow = false;
-      if (position === 0) {
-        hideLeftArrow = true;
-      }
-    }
-    offset = `translateX(calc(-${100 * position / 3}% + -${36 * position / 3}px))`;
-    const currentState = {
-      position, hideLeftArrow, hideRightArrow, direction, offset,
-    };
-    this.setState({
-      ...currentState,
-    });
-  }
-
-  addFavorite(restaurantId, favoriteAdded, index) {
-    const { carouselData } = this.state;
+  async addFavorite(restaurantId, favoriteAdded) {
     let increment;
     if (!favoriteAdded) {
       increment = 1;
     } else {
       increment = -1;
     }
-    const data = { restaurantId, increment };
-    fetch(`/api/nearby${id}`, {
-      method: 'put',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(res => res.json())
-      .then(res => this.setState({ carouselData: res }))
+    await axios.put(`/api/nearby${id}?restaurantId=${restaurantId}&increment=${increment}`)
+      .then(res => this.setState({ carouselData: res.data }))
       .catch(err => console.log(err));
   }
 
   render() {
     const {
-      carouselData, hideRightArrow, hideLeftArrow,
-      position, offset, direction,
+      carouselData, error,
     } = this.state;
     if (carouselData.length === 0) {
-      return (<div>LOADING</div>);
-    }
+      return (<div>Loading...</div>);
+    } if (error) { return <div>{error}</div>; }
     return (
       <NearbyApp>
         <NearbyContent>
@@ -153,16 +112,7 @@ class Nearby extends Component {
             </AllInArea>
             <RightChevron />
           </TopBar>
-          <Carousel
-            carouselData={carouselData}
-            hideRightArrow={hideRightArrow}
-            hideLeftArrow={hideLeftArrow}
-            scrollByThree={this.scrollByThree}
-            addFavorite={this.addFavorite}
-            position={position}
-            offset={offset}
-            direction={direction}
-          />
+          <Carousel carouselData={carouselData} addFavorite={this.addFavorite} />
         </NearbyContent>
       </NearbyApp>
     );

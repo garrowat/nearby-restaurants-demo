@@ -15,12 +15,18 @@ app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
 
 app.get('/api/nearby/:carousel_id', (req, res) => {
   db.findCarousel(req.params.carousel_id)
-    .then(carousel => res.status(200).send(carousel))
-    .catch(err => res.status(400, err));
+    .then((data) => {
+      if (data[0].carousel.length === 0) {
+        throw Error('Carousel not found');
+      } else {
+        res.status(200).send(data[0].carousel);
+      }
+    })
+    .catch(err => res.status(400).json(err));
 });
 
 app.put('/api/nearby/:carousel_id', (req, res) => {
-  db.addFavorite(req.params.carousel_id, req.body.restaurantId, req.body.increment)
+  db.addFavorite(req.params.carousel_id, req.query.restaurantId, req.query.increment)
     .then(updated => res.status(202).send(updated.carousel))
-    .catch(err => res.status(400, err));
+    .catch(err => res.status(400).json(err));
 });

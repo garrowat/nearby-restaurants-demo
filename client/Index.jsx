@@ -22,7 +22,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-
 ReactDOM.render(
   <React.Fragment>
     <GlobalStyle />
