@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { MdChevronRight, MdChevronLeft } from 'react-icons/md';
 import Slide from './Slide.jsx';
@@ -70,40 +70,93 @@ const RightChevron = styled(MdChevronRight)`
   width: 24px;
 `;
 
-const Carousel = ({
-  carouselData, hideRightArrow, hideLeftArrow, position,
-  getOrder, scrollByThree, offset, direction, addFavorite,
-}) => {
-  const slides = carouselData.map((slide, index) => (
-    <Slide
-      key={slide.restaurantId}
-      index={index}
-      {...slide}
-      addFavorite={addFavorite}
-    />
-  ));
+class Carousel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      position: 0,
+      direction: '',
+      offset: '',
+      hideRightArrow: true,
+      hideLeftArrow: true,
+    };
+    this.scrollByThree = this.scrollByThree.bind(this);
+  }
 
-  return (
-    <CarouselContainer>
-      <OverflowWrapper>
-        <SlideDeck direction={direction} offset={offset}>{slides}</SlideDeck>
-      </OverflowWrapper>
+  componentDidMount() {
+    const { carouselData } = this.props;
+    if (carouselData.length > 3) {
+      this.setState({
+        hideRightArrow: false,
+      });
+    }
+  }
 
-      {!hideLeftArrow
-      && (
-      <LeftArrow className="leftArrow" dir="left" onClick={() => scrollByThree('left')}>
-        <LeftChevron />
-      </LeftArrow>
-      )}
-      {!hideRightArrow && (
-      <RightArrow className="rightArrow" dir="right" onClick={() => scrollByThree('right')}>
-        <RightChevron />
-      </RightArrow>
-      )}
-    </CarouselContainer>
+  scrollByThree(direction) {
+    const { carouselData } = this.props;
+    let {
+      position, hideRightArrow, hideLeftArrow, offset,
+    } = this.state;
 
-  );
-};
+    if (direction === 'right' && position < 8) {
+      position += 3;
+      hideLeftArrow = false;
+      if (position >= carouselData.length - 3) {
+        hideRightArrow = true;
+      }
+    } else if (direction === 'left' && position > 0) {
+      position -= 3;
+      hideRightArrow = false;
+      if (position === 0) {
+        hideLeftArrow = true;
+      }
+    }
+    offset = `translateX(calc(-${100 * position / 3}% + -${36 * position / 3}px))`;
+    const currentState = {
+      position, hideLeftArrow, hideRightArrow, direction, offset,
+    };
+    this.setState({
+      ...currentState,
+    });
+  }
+
+  render() {
+    const { carouselData, addFavorite } = this.props;
+    const {
+      direction, hideRightArrow, hideLeftArrow, offset,
+    } = this.state;
+
+    const slides = carouselData.map((slide, index) => (
+      <Slide
+        key={slide.restaurantId}
+        index={index}
+        {...slide}
+        addFavorite={addFavorite}
+      />
+    ));
+
+    return (
+      <CarouselContainer>
+        <OverflowWrapper>
+          <SlideDeck direction={direction} offset={offset}>{slides}</SlideDeck>
+        </OverflowWrapper>
+
+        {!hideLeftArrow
+        && (
+        <LeftArrow className="leftArrow" dir="left" onClick={() => this.scrollByThree('left')}>
+          <LeftChevron />
+        </LeftArrow>
+        )}
+        {!hideRightArrow && (
+        <RightArrow className="rightArrow" dir="right" onClick={() => this.scrollByThree('right')}>
+          <RightChevron />
+        </RightArrow>
+        )}
+      </CarouselContainer>
+
+    );
+  }
+}
 
 
 export default Carousel;

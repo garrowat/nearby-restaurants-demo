@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import { MdStarBorder, MdStar } from 'react-icons/md';
 import styled, { keyframes, css } from 'styled-components';
 
-
 const Grow = keyframes`
-0% { transform: scale(1) }
-50% {transform: scale(1.3)}
-100% {transform: scale(1)}
+  0% { transform: scale(1) }
+  50% {transform: scale(1.3)}
+  100% {transform: scale(1)}
 `;
 
-
 const Favorites = styled.div`
-font-size: 14px;
-font-family: 'PostMates', 'Helvetica Neue', Helvetica;
+  font-size: 14px;
+  font-family: 'PostMates', 'Helvetica Neue', Helvetica;
   font-weight: 400;
   color: #8F95A3;
   padding-top: 5px;
@@ -20,8 +18,8 @@ font-family: 'PostMates', 'Helvetica Neue', Helvetica;
   `;
 
 const SlideContainer = styled.div`
-flex: 0 0 calc(33.33333% - 0px - 24px);
-position: relative;
+  flex: 0 0 calc(33.33333% - 0px - 24px);
+  position: relative;
   margin-left: 36px;
   &:first-child {
     margin-left: 0px;
@@ -32,7 +30,7 @@ position: relative;
   `;
 
 const RestaurantImage = styled.div`
-display: flex;
+  display: flex;
   position: relative;
   opacity: 1;
   height: auto;
@@ -58,6 +56,7 @@ display: flex;
 
 const Star = styled(MdStarBorder)`
   color: white;
+  cursor: pointer;
   margin: 15px 10px 165px 270px;
   position: absolute;
   height: 33px;
@@ -76,6 +75,7 @@ const StarBack = styled(MdStar)`
 
 const SlideInfo = styled.div`
   display: block;
+  cursor: pointer;
   margin-top: 15px;
   font-size: 18px;
   font-family: 'PostMatesMed', 'Helvetica Neue', Helvetica;
@@ -84,6 +84,7 @@ const SlideInfo = styled.div`
 
 const Delivery = styled.div`
   font-size: 14px;
+  cursor: pointer;
   font-family: 'PostMates', 'Helvetica Neue', Helvetica;
   font-weight: 400;
   color: #8F95A3;
@@ -136,21 +137,24 @@ class Slide extends Component {
           { favoriteAdded && <StarBack />}
           <Star
             favclicked={favClicked ? 1 : 0}
-            onClick={() => { addFavorite(restaurantId, favoriteAdded, index); this.toggleFavorite(favoriteAdded); this.growShrink(); }}
+            onClick={() => {
+              addFavorite(restaurantId, favoriteAdded, index);
+              this.toggleFavorite(favoriteAdded);
+              this.growShrink();
+            }
+            }
           />
         </RestaurantImage>
         <SlideInfo>
           {name}
           <Delivery>{`${deliveryEst}-${deliveryEst + 15} min`}</Delivery>
         </SlideInfo>
-        { favorited > 0
-          ? (
-            <Favorites>
-              <StarTwo />
-              {`${favorited} added to favorites`}
-            </Favorites>
-          )
-          : ' '}
+        {favorited && (
+        <Favorites>
+          <StarTwo />
+          {`${favorited} added to favorites`}
+        </Favorites>
+        )}
       </SlideContainer>
     );
   }

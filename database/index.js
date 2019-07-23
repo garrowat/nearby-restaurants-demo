@@ -28,16 +28,12 @@ const CarouselSchema = new mongoose.Schema({
 
 const Carousel = mongoose.model('Carousel', CarouselSchema, 'Carousel');
 
-const findCarousel = id => Carousel.find({ id })
-  .then(carousel => carousel[0].carousel)
-  .catch(err => console.log(err));
+const findCarousel = id => Carousel.find({ id }).exec();
 
 const addFavorite = (id, restaurantId, increment) => Carousel.findOneAndUpdate(
   { id, carousel: { $elemMatch: { restaurantId } } },
   { $inc: { 'carousel.$.favorited': increment } }, { new: true },
-)
-  .then(updated => updated)
-  .catch(err => console.log('update db failure', err));
+).exec();
 
 
 module.exports = {
