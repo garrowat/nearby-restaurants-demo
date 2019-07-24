@@ -28,6 +28,8 @@ const CarouselSchema = new mongoose.Schema({
 
 const Carousel = mongoose.model('Carousel', CarouselSchema, 'Carousel');
 
+// addCarousel, use Carousel.save(), creates a new carousel
+
 const findCarousel = id => Carousel.find({ id }).exec();
 
 const addFavorite = (id, restaurantId, increment) => Carousel.findOneAndUpdate(
@@ -35,6 +37,9 @@ const addFavorite = (id, restaurantId, increment) => Carousel.findOneAndUpdate(
   { $inc: { 'carousel.$.favorited': increment } }, { new: true },
 ).exec();
 
+// update carousel use findOneAndUpdate, adds a restaurant to a carousel
+
+// delete carousel deletes whole carousel
 
 module.exports = {
   findCarousel,
