@@ -1,9 +1,12 @@
 module.exports = {
   env: {
     browser: true,
+    commonjs: true,
     es6: true,
   },
-  extends: 'airbnb',
+  extends: [
+    'airbnb',
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -13,7 +16,6 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: 'module',
   },
   plugins: [
     'react',
