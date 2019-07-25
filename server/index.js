@@ -45,8 +45,7 @@ app.put('/api/nearby/:carousel_id', (req, res) => {
 });
 
 app.put('/api/nearbyUpdate/', (req, res) => {
-  const carouselUpdate = req.body;
-  const { id, carousel } = carouselUpdate;
+  const { id, carousel } = req.body;
   db.updateCarouselById(id, carousel)
     .then((result) => {
       res.status(200).send(result);
@@ -55,7 +54,20 @@ app.put('/api/nearbyUpdate/', (req, res) => {
 });
 
 app.delete('/api/nearby/:carousel_id', (req, res) => {
+  let targetCarousel;
+  db.findCarousel(req.params.carousel_id)
+    .then((data) => {
+      if (data[0].carousel.length === 0) {
+        throw Error('Carousel not found');
+      } else {
+        targetCarousel = data;
+      }
+    })
+    .catch(err => res.status(400).json(err));
+
   db.deleteCarouselById(req.params.carousel_id)
-    .then(result => res.status(200).send(result))
+    .then(() => {
+      res.status(200).send(targetCarousel);
+    })
     .catch(err => res.status(400).send(err));
 });
