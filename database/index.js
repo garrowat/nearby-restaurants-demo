@@ -50,4 +50,8 @@ module.exports = {
     { id, carousel: { $elemMatch: { restaurantId } } },
     { $inc: { 'carousel.$.favorited': increment } }, { new: true },
   ).exec(),
+
+  updateCarouselById: carouselUpdate => Carousel.findOneAndUpdate(
+    { id: carouselUpdate.id }, carouselUpdate,
+  ).exec(),
 };
