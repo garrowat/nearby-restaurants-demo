@@ -90,7 +90,7 @@ class Nearby extends Component {
     } else {
       increment = -1;
     }
-    await axios.put(`/api/nearby${id}?restaurantId=${restaurantId}&increment=${increment}`)
+    await axios.put(`/api/nearby/favorite${id}?restaurantId=${restaurantId}&increment=${increment}`)
       .then(res => this.setState({ carouselData: res.data }))
       .catch(err => console.log(err));
   }
