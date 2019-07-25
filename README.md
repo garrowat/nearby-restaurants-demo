@@ -21,11 +21,13 @@
 ## Table of Contents
 
 1. [Usage](#Usage)
-1. [Requirements](#requirements)
+2. [Testing](#Testing)
+3. [Requirements](#Requirements)
+4. [Installing Dependencies](#Installing-Dependencies)
 
 ## Usage
 
-Ensure that your MongoDB server is running.
+Ensure that your MongoDB server is running.[Usage](#Usage)
 
 From within the root directory:
   ```sh
