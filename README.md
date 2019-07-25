@@ -2,6 +2,10 @@
 
 > An interactive image carousel that helps hungry people find something to eat nearby.
 
+## API
+
+For API documentation, see the [API Readme](/server/README.md).
+
 ## Technologies
 
   - React

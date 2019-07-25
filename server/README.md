@@ -13,14 +13,13 @@
 Below are the requests and responses for this API.
 
 ### Requests
-Operation | URL | Method | Returns | Inputs
+Request | URL | Method | Returns | Inputs
 --------- | ---------- | ---------- | ---------- | ----------
-CarouselComponent | /:carousel_id | GET | HTML File | [carousel_id]
-findCarousel | /api/nearby/:carousel_id | GET | [carousel_json](#carousel_json) | [carousel_id]
-addCarousel | /api/nearby/ | POST | [carousel_json](#carousel_json) | [carousel_json](#carousel_json)
-addFavorite | /api/nearby/:carousel_id | PUT | [carousel_json](#carousel_json) | [carousel_id], [restaurantId], [increment]
-updateCarouselById | /api/nearbyUpdate/:carousel_id | PUT | [carousel_json](#carousel_json) | [carousel_json](#carousel_json)
-deleteCarouselById | /api/nearby/:carousel_id | DELETE | [delete_response](#delete_response) | [carousel_id]
+Find a carousel by ID | /api/nearby/:carousel_id | GET | [carousel_json](#carousel_json) | [carousel_id]
+Add a new carousel via JSON | /api/nearby/ | POST | [carousel_json](#carousel_json) | [carousel_json](#carousel_json)
+Incremember the favorite count for a restaurant | /api/nearby/:carousel_id | PUT | [carousel_json](#carousel_json) | [carousel_id], [restaurantId], [increment]
+Update any fields for an existing carousel | /api/nearbyUpdate/:carousel_id | PUT | [carousel_json](#carousel_json) | [carousel_json](#carousel_json)
+Delete an existing carousel by ID | /api/nearby/:carousel_id | DELETE | [carousel_json](#carousel_json) (deleted item) | [carousel_id]
 
 ### Responses
 
@@ -56,14 +55,5 @@ Response payloads are the following:
         "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fnmag-gross-veggie-burger.0.jpg"
     },
   ]
-}
-```
-
-#### delete_response
-```json
-{
-  "n": 1,
-  "ok": 1,
-  "deletedCount": 1
 }
 ```
