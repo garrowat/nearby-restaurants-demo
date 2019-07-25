@@ -58,16 +58,13 @@ app.delete('/api/nearby/:carousel_id', (req, res) => {
         targetCarousel = data;
       }
     })
+    .then(() => db.deleteCarouselById(req.params.carousel_id))
     .then(() => {
-      db.deleteCarouselById(req.params.carousel_id)
-        .then(() => {
-          if (targetCarousel) {
-            res.status(200).send(targetCarousel);
-          } else {
-            throw new Error('Record not found');
-          }
-        })
-        .catch(err => res.status(400).send(err));
+      if (targetCarousel) {
+        res.status(200).send(targetCarousel);
+      } else {
+        throw new Error('Record not found');
+      }
     })
-    .catch(err => res.send(err));
+    .catch(err => res.status(400).send(err));
 });
