@@ -1,39 +1,52 @@
-# Project Name
+# Postmates - Nearby Restaurants Carousel
 
-> Project description
+> An interactive image carousel that helps hungry people find something to eat nearby.
+
+## Technologies
+
+  - React
+  - Styled Components
+  - Babel
+  - Webpack
+  - Express
+  - Mongoose
+  - MongoDB
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - [Menu Items](https://github.com/sdc2-williams/menu-items)
+  - [Main Info](https://github.com/sdc2-williams/restaurant-main-info)
+  - [Proxy Server](https://github.com/sdc2-williams/garrett-proxy-postmates)
 
 ## Table of Contents
 
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
-1. [Development](#development)
 
 ## Usage
 
-> Some usage instructions
+Ensure that your MongoDB server is running.
+
+From within the root directory:
+  ```
+  npm build
+  npm seed
+  npm start
+  ```
+
+## Testing
+
+  - npm run test
 
 ## Requirements
 
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
-- Node 6.13.0
-- etc
-
-## Development
+  - MongoDB 4.x
 
 ### Installing Dependencies
 
 From within the root directory:
 
-```sh
-npm install -g webpack
+```
 npm install
 ```
 
