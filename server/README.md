@@ -29,41 +29,41 @@ Response payloads are the following:
 #### carousel_json
 ```json
 {
-     "id":1,
-     "carousel":[
-        {
-           "restaurantId":1,
-           "name":"Lonesome Dove Grill",
-           "category":"burgers",
-           "deliveryEst":15,
-           "favorited":27,
-           "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fancy+burger.jpg"
-        },
-        {
-           "restaurantId":2,
-           "name":"Bobby’s Grill",
-           "category":"burgers",
-           "deliveryEst":30,
-           "favorited":61,
-           "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/burger+prince.png"
-        },
-        {
-           "restaurantId":3,
-           "name":"Melting Pot Grill",
-           "category":"burgers",
-           "deliveryEst":20,
-           "favorited":226,
-           "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fnmag-gross-veggie-burger.0.jpg"
-        },
-     ]
+  "id":1,
+  "carousel":[
+    {
+        "restaurantId":1,
+        "name":"Lonesome Dove Grill",
+        "category":"burgers",
+        "deliveryEst":15,
+        "favorited":27,
+        "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fancy+burger.jpg"
+    },
+    {
+        "restaurantId":2,
+        "name":"Bobby’s Grill",
+        "category":"burgers",
+        "deliveryEst":30,
+        "favorited":61,
+        "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/burger+prince.png"
+    },
+    {
+        "restaurantId":3,
+        "name":"Melting Pot Grill",
+        "category":"burgers",
+        "deliveryEst":20,
+        "favorited":226,
+        "image":"https://restaurantmediafec.s3.us-east-2.amazonaws.com/restaurant+images/fnmag-gross-veggie-burger.0.jpg"
+    },
+  ]
 }
 ```
 
 #### delete_response
 ```json
 {
-    "n": 1,
-    "ok": 1,
-    "deletedCount": 1
+  "n": 1,
+  "ok": 1,
+  "deletedCount": 1
 }
 ```

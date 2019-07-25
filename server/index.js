@@ -32,19 +32,7 @@ app.get('/api/nearby/:carousel_id', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
-app.put('/api/nearby/:carousel_id', (req, res) => {
-  db.addFavorite(req.params.carousel_id, req.query.restaurantId, req.query.increment)
-    .then(updated => res.status(202).send(updated.carousel))
-    .catch(err => res.status(400).json(err));
-});
-
-app.put('/api/nearby/:carousel_id', (req, res) => {
-  db.addFavorite(req.params.carousel_id, req.query.restaurantId, req.query.increment)
-    .then(updated => res.status(202).send(updated.carousel))
-    .catch(err => res.status(400).json(err));
-});
-
-app.put('/api/nearbyUpdate/', (req, res) => {
+app.put('/api/nearby/', (req, res) => {
   const { id, carousel } = req.body;
   db.updateCarouselById(id, carousel)
     .then((result) => {
@@ -53,9 +41,16 @@ app.put('/api/nearbyUpdate/', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+app.put('/api/nearby/favorite/:carousel_id', (req, res) => {
+  console.log('faved!')
+  db.addFavorite(req.params.carousel_id, req.query.restaurantId, req.query.increment)
+    .then(updated => res.status(202).send(updated.carousel))
+    .catch(err => res.status(400).json(err));
+});
+
 app.delete('/api/nearby/:carousel_id', (req, res) => {
   let targetCarousel;
-  db.findCarousel(req.params.carousel_id)
+  db.findCarousel(req.params.carousel_id) // find the carousel so we can return it on deletion
     .then((data) => {
       if (data[0].carousel.length === 0) {
         throw Error('Carousel not found');
@@ -63,11 +58,16 @@ app.delete('/api/nearby/:carousel_id', (req, res) => {
         targetCarousel = data;
       }
     })
-    .catch(err => res.status(400).json(err));
-
-  db.deleteCarouselById(req.params.carousel_id)
     .then(() => {
-      res.status(200).send(targetCarousel);
+      db.deleteCarouselById(req.params.carousel_id)
+        .then(() => {
+          if (targetCarousel) {
+            res.status(200).send(targetCarousel);
+          } else {
+            throw new Error('Record not found');
+          }
+        })
+        .catch(err => res.status(400).send(err));
     })
-    .catch(err => res.status(400).send(err));
+    .catch(err => res.send(err));
 });
