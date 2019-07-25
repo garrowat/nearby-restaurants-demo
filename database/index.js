@@ -51,8 +51,9 @@ module.exports = {
     { $inc: { 'carousel.$.favorited': increment } }, { new: true },
   ).exec(),
 
-  updateCarouselById: carouselUpdate => Carousel.findOneAndUpdate(
-    { id: carouselUpdate.id }, carouselUpdate,
+  updateCarouselById: (id, carousel) => Carousel.findOneAndUpdate(
+    { id }, { carousel },
   ).exec(),
-  deleteCarouselById: carousel => Carousel.deleteOne(carousel.Id),
+
+  deleteCarouselById: id => Carousel.deleteOne({ id }),
 };
