@@ -28,7 +28,7 @@
 Ensure that your MongoDB server is running.
 
 From within the root directory:
-  ```
+  ```sh
   npm build
   npm seed
   npm start
@@ -46,7 +46,7 @@ From within the root directory:
 
 From within the root directory:
 
-```
+```sh
 npm install
 ```
 
