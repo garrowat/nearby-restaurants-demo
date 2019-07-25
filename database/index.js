@@ -54,4 +54,5 @@ module.exports = {
   updateCarouselById: carouselUpdate => Carousel.findOneAndUpdate(
     { id: carouselUpdate.id }, carouselUpdate,
   ).exec(),
+  deleteCarouselById: carousel => Carousel.deleteOne(carousel.Id),
 };
