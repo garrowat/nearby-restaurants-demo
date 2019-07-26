@@ -26,6 +26,7 @@ app.get('/api/nearby/:carousel_id', (req, res) => {
       if (data[0].carousel.length === 0) {
         throw Error('Carousel not found');
       } else {
+        console.log(data);
         res.status(200).send(data[0].carousel);
       }
     })
