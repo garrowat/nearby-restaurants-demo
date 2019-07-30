@@ -1,42 +1,8 @@
-const faker = require('faker');
 const db = require('./connection.js');
 
 db.connect();
 
-class Restaurant {
-  constructor() {
-    this.name = '';
-    this.categoryId = 0;
-    this.deliveryTime = 0;
-    this.favoriteCount = 0;
-    this.imageUrl = '';
-    this.location = '';
-  }
 
-  generateName() {
-
-  }
-
-  generateCategoryId() {
-
-  }
-
-  generateDeliveryTime() {
-
-  }
-
-  generateFavoriteCount() {
-
-  }
-
-  generateImageUrl() {
-
-  }
-
-  generateLocation() {
-
-  }
-}
 
 db.end()
   .then(() => console.log('client has disconnected'))
