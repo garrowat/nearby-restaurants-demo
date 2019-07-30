@@ -13,10 +13,14 @@ class Restaurant {
     this.deliveryTime = 0;
     this.favoriteCount = 0;
     this.imageUrl = '';
-    this.location = '';
+    this.postGISLocation = '';
 
     this.generateName();
     this.generateCategoryId();
+    this.generateDeliveryTime();
+    this.generateFavoriteCount();
+    this.generateImageUrl();
+    this.generateLocation();
   }
 
   generateName() {
@@ -39,7 +43,7 @@ class Restaurant {
   }
 
   generateImageUrl() {
-    this.ImageUrl = `s3url/${Math.floor(Math.random() * 1000)}.jpg`;
+    this.imageUrl = `s3url/${Math.floor(Math.random() * 1000)}.jpg`;
   }
 
   generateLocation() {
@@ -47,7 +51,6 @@ class Restaurant {
     const longitude = faker.fake('{{address.longitude}}');
     this.postGISLocation = `SRID=4326;POINT(${longitude} ${latitude})`;
   }
-
 }
 
 module.exports = {
