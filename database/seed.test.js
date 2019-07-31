@@ -1,4 +1,4 @@
-const seed = require('./seed.js');
+const { Restaurant } = require('./datamocker.js');
 
 const testaurant = new Restaurant();
 

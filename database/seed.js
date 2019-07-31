@@ -1,24 +1,30 @@
+const path = require('path');
 const db = require('./connection.js');
+const { categories } = require('./mockhelperdata.js');
 
 db.connect();
 
 
+const dataPath = path.join(__dirname, '/data.csv');
+const seedQuery = `COPY restaurants (name, category_id, delivery_time, favorited, image_url, location) FROM '/mnt/c/code/SDC/nearby-carousel/database/data.csv' DELIMITER ',' CSV HEADER`;
 
-db.end()
-  .then(() => console.log('client has disconnected'))
-  .catch(err => console.error('error during disconnection', err.stack));
+const valuePlaceholders = categories.reduce((values, _, index, array) => {
+  // generate the '$n' sql placeholders to accomodate all the categories for our query
+  return index + 1 === array.length
+    ? `${values}($${index + 1})`
+    : `${values}($${index + 1}), `;
+}, '');
+const categoryQuery = `INSERT INTO categories (name) VALUES ${valuePlaceholders} RETURNING *`; // this should avoid injection issues due to merely placing value placeholders. The actual value substitution will still happen on the server.
 
-// const catQuery = 'INSERT INTO categories (name) VALUES ($1), ($2) RETURNING *';
-// const values = ['italian', 'indian'];
-
-// db.query(catQuery, values)
-//   .then((res) => {
-//     console.log(res.rows[0]);
-//   })
-//   .then(() => {
-//     db
-//       .end()
-//       .then(() => console.log('client has disconnected'))
-//       .catch(err => console.error('error during disconnection', err.stack));
-//   })
-//   .catch(e => console.error(e.stack));
+Promise.resolve()
+  .then(() => db.query(categoryQuery, categories))
+  .then(() => console.log('Categories successfully seeded, Seeding restaurant data (10M rows), please wait.'))
+  .then(db.query(seedQuery)
+    .then((result) => {
+      console.log('Finished seeding!, result: ', result);
+      db.end();
+    }))
+  .catch((err) => {
+    console.log('Error seeding db: ', err);
+    db.end();
+  });

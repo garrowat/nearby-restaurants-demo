@@ -1,5 +1,9 @@
+const csvWriter = require('csv-write-stream');
+const fs = require('fs');
 const faker = require('faker');
 const { adjectives, nouns, categories } = require('./mockhelperdata.js');
+
+const writer = csvWriter();
 
 const getRandomElement = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -31,11 +35,11 @@ class Restaurant {
   }
 
   generateCategoryId() {
-    this.categoryId = Math.floor(Math.random() * categories.length);
+    this.categoryId = Math.ceil(Math.random() * categories.length);
   }
 
   generateDeliveryTime() {
-    this.deliveryTime = Math.floor(Math.random() * 90);
+    this.deliveryTime = Math.ceil(Math.random() * 90);
   }
 
   generateFavoriteCount() {
@@ -52,6 +56,32 @@ class Restaurant {
     this.postGISLocation = `SRID=4326;POINT(${longitude} ${latitude})`;
   }
 }
+
+const generateMockDataCSV = () => {
+  writer.pipe(fs.createWriteStream('database/data.csv'));
+  for (let i = 0; i < 10000000; i++) {
+    const restaurant = new Restaurant();
+    const {
+      name,
+      categoryId,
+      deliveryTime,
+      favoriteCount,
+      imageUrl,
+      postGISLocation,
+    } = restaurant;
+
+    writer.write({
+      name,
+      categoryId,
+      deliveryTime,
+      favoriteCount,
+      imageUrl,
+      postGISLocation,
+    });
+  }
+};
+
+generateMockDataCSV();
 
 module.exports = {
   Restaurant,

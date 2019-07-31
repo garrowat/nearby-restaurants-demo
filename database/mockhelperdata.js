@@ -3,5 +3,5 @@ module.exports = {
 
   nouns: ['Bakery', 'Diner', 'Eatery', 'Restaurant', 'Bistro', 'Pub', 'Gastro Pub', 'Family Restaurant', 'Joint', 'Salads', 'Bakery', 'Cakes', 'Cookies', 'Frozen Yoghurt', 'Tater Tots', 'Pizza', 'Pies', 'Halibut', 'Cheeses', 'Burgers', 'Bagels', 'Beans', 'Beer', 'Biscuits', 'Breads', 'Broth', 'Butter', 'Candy', 'Caramel', 'Caviar', 'Chili', 'Chocolate', 'Cider', 'Cobbler', 'Coffee', 'Cookies', 'Croissants', 'Cuisine', 'Curds', 'Desserts', 'Dishes', 'Drinks', 'Eggs', 'Entrees', 'Filets', 'Fish', 'Foie Gras', 'Food', 'Grill', 'Hamburgers', 'Juice', 'Kitchen', 'Liquor', 'Meat', 'Mousse', 'Muffins', 'Mushrooms', 'Noodles', 'Nuts', 'Omelettes', 'Pan', 'Pasta', 'Pastries', 'Plate', 'Pot', 'Poutine', 'Puddings', 'Raclette', 'Rice', 'Sandwiches', 'Skillet', 'Sodas', 'Soups', 'Steaks', 'Stews', 'Teas', 'Toast', 'Waffles', 'Wines', 'Wok', 'Yogurts'],
 
-  categories: ['Casual', 'Fast Food', 'Family Restaurant'],
+  categories: ['Casual', 'Fast Food', 'Family Restaurant', 'Fine Dining', 'Italian', 'Bistro', 'Buffet', 'Cafe', 'Cafeteria', 'Coffee House', 'Pub', 'Gastro Pub', 'Chinese', 'French', 'German', 'Greek', 'Indian', 'Japanese', 'Mexican', 'Russian', 'Thai', 'Korean', 'Vietnamese', 'Brunch'],
 };
