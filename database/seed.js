@@ -6,7 +6,7 @@ db.connect();
 
 
 const dataPath = path.join(__dirname, '/data.csv');
-const seedQuery = `COPY restaurants (name, category_id, delivery_time, favorited, image_url, location) FROM '/mnt/c/code/SDC/nearby-carousel/database/data.csv' DELIMITER ',' CSV HEADER`;
+const seedQuery = `COPY restaurants (name, category_id, delivery_time, favorited, image_url, location) FROM '${dataPath}' DELIMITER ',' CSV HEADER`;
 
 const valuePlaceholders = categories.reduce((values, _, index, array) => {
   // generate the '$n' sql placeholders to accomodate all the categories for our query
