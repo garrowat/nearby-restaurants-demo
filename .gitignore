@@ -24,3 +24,8 @@ coverage
 **/public/bundle.js
 public/
 
+# data files
+*.csv
+
+# environment variables
+.env
