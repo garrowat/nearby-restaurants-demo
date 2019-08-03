@@ -12,6 +12,7 @@ const getRandomElement = (array) => {
 
 class Restaurant {
   constructor() {
+    this.id = 0;
     this.name = '';
     this.categoryId = 0;
     this.deliveryTime = 0;
@@ -34,8 +35,8 @@ class Restaurant {
     this.name = `${owner}'s ${adjective} ${noun}`;
   }
 
-  generateCategoryId() {
-    this.categoryId = Math.ceil(Math.random() * categories.length);
+  generateCategory() {
+    this.category = getRandomElement(categories);
   }
 
   generateDeliveryTime() {
@@ -63,16 +64,18 @@ const generateMockDataCSV = () => {
     const restaurant = new Restaurant();
     const {
       name,
-      categoryId,
+      category,
       deliveryTime,
       favoriteCount,
       imageUrl,
       postGISLocation,
     } = restaurant;
+    const id = i + 1;
 
     writer.write({
+      id,
       name,
-      categoryId,
+      category,
       deliveryTime,
       favoriteCount,
       imageUrl,

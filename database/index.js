@@ -1,4 +1,5 @@
-require('dotenv').config();
-const { Client } = require('pg');
+const { Client } = require('@elastic/elasticsearch');
 
-module.export = new Client();
+const client = new Client({ node: `${process.env.ESHOST}:${process.env.ESPORT}`, log: 'trace' });
+
+module.exports = client;
