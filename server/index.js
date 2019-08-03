@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database/index.js');
+const { Client } = require('@elastic/elasticsearch');
 
+console.log(`${process.env.ESHOST}:${process.env.ESPORT}`)
+const client = new Client({ node: `http://${process.env.ESHOST}:${process.env.ESPORT}`, log: 'trace' });
 
 const app = express();
 const PORT = 1337;
@@ -21,16 +24,15 @@ app.post('/api/nearby/', (req, res) => {
 });
 
 app.get('/api/nearby/:carousel_id', (req, res) => {
-  db.findCarousel(req.params.carousel_id)
-    .then((data) => {
-      if (data[0].carousel.length === 0) {
-        throw Error('Carousel not found');
-      } else {
-        console.log(data);
-        res.status(200).send(data[0].carousel);
-      }
+  const id = req.params.carousel_id;
+  client.search({
+    index: 'restaurants',
+    q: `id:${id}`,
+  })
+    .then((results) => {
+      res.status(200).json(results.body);
     })
-    .catch(err => res.status(400).json(err));
+    .catch(err => res.status(400).send(err));
 });
 
 app.put('/api/nearby/', (req, res) => {
