@@ -72,6 +72,7 @@ class Nearby extends Component {
 
   componentDidMount() {
     this.fetchData(id);
+    console.log(this.state.carouselData);
   }
 
   async fetchData() {

@@ -1,9 +1,9 @@
+require('newrelic');
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client } = require('@elastic/elasticsearch');
 
-console.log(`${process.env.ESHOST}:${process.env.ESPORT}`)
 const client = new Client({ node: `http://${process.env.ESHOST}:${process.env.ESPORT}`, log: 'trace' });
 
 const app = express();
@@ -18,9 +18,10 @@ app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
 
 app.post('/api/nearby/', (req, res) => {
   const newCarousel = req.body;
-  db.addCarousel(newCarousel)
-    .then(result => res.status(201).send(result))
-    .catch(err => res.status(400).json(err));
+  client.create({
+    index: 'restaurants',
+    body: newCarousel,
+  });
 });
 
 app.get('/api/nearby/:carousel_id', (req, res) => {
@@ -30,7 +31,8 @@ app.get('/api/nearby/:carousel_id', (req, res) => {
     q: `id:${id}`,
   })
     .then((results) => {
-      res.status(200).json(results.body);
+      const restaurant = results.body.hits.hits[0]._source;
+      res.status(200).send([restaurant, restaurant, restaurant, restaurant, restaurant, restaurant]);
     })
     .catch(err => res.status(400).send(err));
 });
@@ -45,7 +47,7 @@ app.put('/api/nearby/', (req, res) => {
 });
 
 app.put('/api/nearby/favorite/:carousel_id', (req, res) => {
-  console.log('faved!')
+  console.log('faved!');
   db.addFavorite(req.params.carousel_id, req.query.restaurantId, req.query.increment)
     .then(updated => res.status(202).send(updated.carousel))
     .catch(err => res.status(400).json(err));
