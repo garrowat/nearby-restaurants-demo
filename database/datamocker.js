@@ -14,14 +14,14 @@ class Restaurant {
   constructor() {
     this.id = 0;
     this.name = '';
-    this.categoryId = 0;
+    this.category = '';
     this.deliveryTime = 0;
     this.favoriteCount = 0;
     this.imageUrl = '';
-    this.postGISLocation = '';
+    this.location = '';
 
     this.generateName();
-    this.generateCategoryId();
+    this.generateCategory();
     this.generateDeliveryTime();
     this.generateFavoriteCount();
     this.generateImageUrl();
@@ -48,13 +48,13 @@ class Restaurant {
   }
 
   generateImageUrl() {
-    this.imageUrl = `s3url/${Math.floor(Math.random() * 1000)}.jpg`;
+    this.imageUrl = `https://nearby-restaurants-images.s3.ap-northeast-2.amazonaws.com/${Math.ceil(Math.random() * 1000)}.jpg`;
   }
 
   generateLocation() {
     const latitude = faker.fake('{{address.latitude}}');
     const longitude = faker.fake('{{address.longitude}}');
-    this.postGISLocation = `SRID=4326;POINT(${longitude} ${latitude})`;
+    this.location = `${latitude}, ${longitude}`;
   }
 }
 
@@ -68,7 +68,7 @@ const generateMockDataCSV = () => {
       deliveryTime,
       favoriteCount,
       imageUrl,
-      postGISLocation,
+      location,
     } = restaurant;
     const id = i + 1;
 
@@ -79,7 +79,7 @@ const generateMockDataCSV = () => {
       deliveryTime,
       favoriteCount,
       imageUrl,
-      postGISLocation,
+      location,
     });
   }
 };
