@@ -11,8 +11,8 @@ const getRandomElement = (array) => {
 };
 
 class Restaurant {
-  constructor() {
-    this.id = 0;
+  constructor(id) {
+    this.id = id;
     this.name = '';
     this.category = '';
     this.deliveryTime = 0;
@@ -61,7 +61,7 @@ class Restaurant {
 const generateMockDataCSV = () => {
   writer.pipe(fs.createWriteStream('database/data.csv'));
   for (let i = 0; i < 10000000; i++) {
-    const restaurant = new Restaurant();
+    const restaurant = new Restaurant(i + 1);
     const {
       name,
       category,
@@ -70,10 +70,8 @@ const generateMockDataCSV = () => {
       imageUrl,
       location,
     } = restaurant;
-    const id = i + 1;
 
     writer.write({
-      id,
       name,
       category,
       deliveryTime,
@@ -83,8 +81,6 @@ const generateMockDataCSV = () => {
     });
   }
 };
-
-generateMockDataCSV();
 
 module.exports = {
   Restaurant,

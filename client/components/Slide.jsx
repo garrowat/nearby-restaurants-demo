@@ -128,12 +128,12 @@ class Slide extends Component {
 
   render() {
     const {
-      image, name, deliveryEst, favorited, restaurantId, addFavorite, growShrink, index,
+      imageUrl, name, deliveryTime, favoriteCount, restaurantId, addFavorite, growShrink, index,
     } = this.props;
     const { favoriteAdded, favClicked } = this.state;
     return (
       <SlideContainer className="slide">
-        <RestaurantImage image={image}>
+        <RestaurantImage image={imageUrl}>
           { favoriteAdded && <StarBack />}
           <Star
             favclicked={favClicked ? 1 : 0}
@@ -147,12 +147,12 @@ class Slide extends Component {
         </RestaurantImage>
         <SlideInfo>
           {name}
-          <Delivery>{`${deliveryEst}-${deliveryEst + 15} min`}</Delivery>
+          <Delivery>{`${deliveryTime}-${deliveryTime + 15} min`}</Delivery>
         </SlideInfo>
-        {favorited && (
+        {favoriteCount && (
         <Favorites>
           <StarTwo />
-          {`${favorited} added to favorites`}
+          {`${favoriteCount} added to favorites`}
         </Favorites>
         )}
       </SlideContainer>
