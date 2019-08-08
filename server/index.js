@@ -17,31 +17,37 @@ app.use('/:carousel_id', express.static(`${__dirname}/../public`));
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`); });
 
 app.post('/api/nearby/', (req, res) => {
-  const newCarousel = req.body;
-  client.create({
-    index: 'restaurants',
-    body: newCarousel,
-  });
+  const { body } = req;
+  client.bulk({ index: 'restaurants', body: [`{ "index": { } }}\n${JSON.stringify(body)}\n`] })
+    .then(results => res.status(201).send(results))
+    .catch((err) => {
+      console.log(err);
+      res.status(401).send(err);
+    });
 });
 
-app.get('/api/nearby/:carousel_id', (req, res) => {
+app.get('/api/nearby/:carousel_id', async (req, res) => {
   const id = req.params.carousel_id;
-  client.search({
+  await client.search({
     index: 'restaurants',
-    q: `id:${id}`,
+    body: {
+      query: {
+        match: { id },
+      },
+    },
   })
     .then((results) => {
       const restaurant = results.body.hits.hits[0]._source;
-      res.status(200).send([restaurant, restaurant, restaurant, restaurant, restaurant, restaurant]);
+      res.status(200).send([restaurant, restaurant, restaurant, restaurant, restaurant]);
     })
     .catch(err => res.status(400).send(err));
 });
 
-app.put('/api/nearby/', (req, res) => {
-  const { id, carousel } = req.body;
-  db.updateCarouselById(id, carousel)
+app.put('/api/nearby/', async (req, res) => {
+  const { id, body } = req.body;
+  client.updateByQuery({ index: 'restaurants', q: id, body })
     .then((result) => {
-      res.status(200).send(result);
+      res.status(202).send(result);
     })
     .catch(err => res.status(400).json(err));
 });
