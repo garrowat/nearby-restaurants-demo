@@ -48,7 +48,7 @@ class Restaurant {
   }
 
   generateImageUrl() {
-    this.imageUrl = `https://nearby-restaurants-images.s3.ap-northeast-2.amazonaws.com/${Math.ceil(Math.random() * 1000)}.jpg`;
+    this.imageUrl = `${Math.ceil(Math.random() * 1000)}`;
   }
 
   generateLocation() {

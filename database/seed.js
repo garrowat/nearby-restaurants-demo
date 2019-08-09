@@ -7,15 +7,13 @@ async function putMapping() {
   client.indices.putMapping({
     index: 'restaurants',
     body: {
-      mappings: {
-        properties: {
-          name: { type: 'string' },
-          category: { type: 'string' },
-          deliveryTime: { type: 'integer' },
-          favoriteCount: { type: 'integer' },
-          imageUrl: { type: 'string' },
-          location: { type: 'geo_point' },
-        },
+      properties: {
+        name: { type: 'text' },
+        category: { type: 'text' },
+        deliveryTime: { type: 'integer' },
+        favoriteCount: { type: 'integer' },
+        imageUrl: { type: 'text' },
+        location: { type: 'geo_point' },
       },
     },
   }, (err, res, status) => {
@@ -31,19 +29,20 @@ async function putMapping() {
 const seedToES = async () => {
   console.log('Seeding begun', `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`);
   let completion = 0;
-  // Clear current DB
   await client.indices.delete({
     index: 'restaurants',
   })
-    .then(console.log('indices deleted'))
     .catch(err => console.log(err));
+
+  await client.indices.create({
+    index: 'restaurants',
+  });
 
   await putMapping();
 
   let fakeItems = [];
 
   for (let i = 1; i <= 10000000; i += 1) {
-    // Create NDJSON
     const restaurant = new Restaurant(i);
     fakeItems.push(`{ "index": { } }}\n${JSON.stringify(restaurant)}\n`);
     if (i % 500000 === 0) {

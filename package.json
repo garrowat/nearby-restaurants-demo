@@ -10,6 +10,7 @@
   "scripts": {
     "build": "webpack -d --watch",
     "init:db": "psql -d nearby_restaurants -f database/schema.sql",
+    "info": "node database/info.js",
     "seed:csv": "node --max-old-space-size=8192 database/datamocker.js",
     "seed:db": "node database/seed.js",
     "start": "nodemon server/index.js",
