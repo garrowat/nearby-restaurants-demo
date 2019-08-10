@@ -44,6 +44,7 @@ app.get('/api/nearby/:carousel_id', async (req, res) => {
 });
 
 app.put('/api/nearby/', async (req, res) => {
+  //TODO fix this route
   const { body } = req;
   const { id } = body;
   client.updateByQuery({
