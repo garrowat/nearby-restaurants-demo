@@ -1,8 +1,8 @@
-# Postmates - Nearby Restaurants Carousel
+# Nearby Restaurants Image Carousel, a Back-end Demo
 
 > An interactive image carousel that helps hungry people find something to eat nearby.
 
-## API
+## Looking for the API?
 
 For API documentation, see the [API Readme](/server/README.md).
 
@@ -13,46 +13,43 @@ For API documentation, see the [API Readme](/server/README.md).
   - Babel
   - Webpack
   - Express
-  - Mongoose
-  - MongoDB
-
-## Related Projects
-
-  - [Menu Items](https://github.com/sdc2-williams/menu-items)
-  - [Main Info](https://github.com/sdc2-williams/restaurant-main-info)
-  - [Proxy Server](https://github.com/sdc2-williams/garrett-proxy-postmates)
+  - Elasticsearch
 
 ## Table of Contents
+1. [Requirements](#Requirements)
+2. [Installing Dependencies](#Installation)
+3. [Usage](#Usage)
+4. [Testing](#Testing)
 
-1. [Usage](#Usage)
-2. [Testing](#Testing)
-3. [Requirements](#Requirements)
-4. [Installing Dependencies](#Installing-Dependencies)
-
-## Usage
-
-Ensure that your MongoDB server is running.[Usage](#Usage)
-
-From within the root directory:
-  ```sh
-  npm build
-  npm seed
-  npm start
-  ```
-
-## Testing
-
-  - npm run test
-
-## Requirements
-
-  - MongoDB 4.x
-
-### Installing Dependencies
+## Installation
 
 From within the root directory:
 
 ```sh
 npm install
 ```
+
+## Usage
+
+Ensure that your Elasticsearch server is running.
+
+From within the root directory:
+```sh
+npm build
+npm seed
+npm start
+```
+
+## Testing
+
+```sh
+npm run test
+```
+
+## Requirements
+
+  - Node.js 8.15+
+  - Elasticsearch 7.3+
+
+
 
