@@ -1,5 +1,3 @@
-const faker = require('faker');
-
 const { adjectives, nouns, categories } = require('./mockhelperdata.js');
 
 const getRandomElement = (array) => {

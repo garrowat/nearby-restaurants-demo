@@ -29,3 +29,6 @@ public/
 
 # environment variables
 .env
+
+# newrelic config
+newrelic.js
