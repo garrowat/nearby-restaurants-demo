@@ -27,8 +27,8 @@ async function putMapping() {
 }
 
 const seedToES = async () => {
-  const time = new Date();
-  const [hours, minutes, seconds] = [time.getHours(), time.getMinutes(), time.getSeconds()];
+  let time = new Date();
+  let [hours, minutes, seconds] = [time.getHours(), time.getMinutes(), time.getSeconds()];
   console.log('Seeding begun', `${hours}:${minutes}:${seconds}`);
   let completion = 0;
   await client.indices.delete({
@@ -60,7 +60,9 @@ const seedToES = async () => {
       fakeItems = [];
     }
   }
-  console.log('Seeding complete', `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`);
+  time = new Date();
+  [hours, minutes, seconds] = [time.getHours(), time.getMinutes(), time.getSeconds()];
+  console.log('Seeding complete', `${hours}:${minutes}:${seconds}`);
 };
 
 seedToES()
