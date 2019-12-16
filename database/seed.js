@@ -29,7 +29,7 @@ async function putMapping() {
 const seedToES = async () => {
   const time = new Date();
   const [hours, minutes, seconds] = [time.getHours(), time.getMinutes(), time.getSeconds()];
-  console.log('Seeding begun', `${hours}, ${minutes}, ${seconds}`);
+  console.log('Seeding begun', `${hours}:${minutes}:${seconds}`);
   let completion = 0;
   await client.indices.delete({
     index: 'restaurants',
