@@ -32,6 +32,7 @@
 
   - **React** frontend fetches from an **Express** server that queries an **Elasticsearch** index of restaurants that each contain a location field for **geolocation** purposes
   - Frontend created by [o0Maikeru0o](https://github.com/o0Maikeru0o), with some modifications
+  - Handles 2000 requests per second locally
   - Support for Elasticsearch geo-distance queries, like so:
 
   ```json
@@ -54,7 +55,7 @@
         }
     }
 }
-  ```
+```
 
 ## Requirements
 
