@@ -1,6 +1,6 @@
 # Nearby Restaurants Image Carousel, a Back-end Demo
 
-  This project takes a legacy codebase (Nearby Restaurants Carousel), and redesigns the backend to handle 10 million restaurant records and 2000 requests per second.
+  This project takes a legacy codebase (Nearby Restaurants Carousel) and redesigns the backend to handle 10 million restaurant records and 2000 requests per second.
 
   I chose to use Elasticsearch for this after reading about its solid geospatial capabilities, and also for the added benefit of visualization via Kibana.
 
