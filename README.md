@@ -30,7 +30,7 @@
 
 ## Features
 
-  - **React** frontend fetches from an **Express** server that queries an **Elasticsearch** index of restaurants that each contain a location field for **geolocation** purposes
+  - A **React** frontend that fetches from an **Express** server, which queries an **Elasticsearch** index of restaurants that each contain a location field for **geolocation** purposes
   - Frontend created by [o0Maikeru0o](https://github.com/o0Maikeru0o), with some modifications
   - Handles 2000 requests per second locally
   - Support for Elasticsearch geo-distance queries, like so:
@@ -64,7 +64,7 @@
 
 ## Installation
 
-  From within the root directory:
+  From within the root directory, run the following:
 
   ```sh
   npm install
@@ -74,7 +74,7 @@
 
   Ensure that your Elasticsearch server is running (Optionally, you can install Elastic's Kibana for some sleek visualization and management capabilities).
 
-  You can confirm this by navigating to `127.0.0.1:9200`, after which you'll see the following in your browser:
+  You can confirm that the server is running by navigating to `127.0.0.1:9200`, after which you'll something like this in your browser:
 
   ```json
   {
@@ -109,6 +109,10 @@
   npm run seed:db
   npm run start
   ```
+
+  To view the Nearby Restaurants Carousel, navigate to `http://127.0.0.1:1337`.
+
+  See the [API Readme](/server/README.md) as well.
 
 ## Testing
 
